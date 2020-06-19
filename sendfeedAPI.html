@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+
+    <script>
+        src = "https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.13.0/polyfill.min.js"
+    </script>
+
+    <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+            crossorigin="anonymous"
+    >
+    <center>
+
+    <h2>Enviar Mensagem para a API</h2>
+
+    <form
+
+        onsubmit="return enviar()"
+
+    >
+
+
+        <label for="fname">Title:</label><br>
+        <input type="text" id="title" name="title">
+        <br>
+        <label for="lname">Description:</label><br>
+        <input type="text" id="description" name="description">
+        <br>
+        <label for="lname">PostDate:</label><br>
+        <input type="text" id="postdate" name="postdate">
+        <br>
+        <label for="lname">Author:</label><br>
+        <input type="text" id="author" name="author">
+
+        <br>
+        <div id="resposta"></div>
+        <br>
+        <button type="submit">Enviar</button>
+
+    </form>
+
+    <button><a href="allfeeds.html"/>Todos os Feeds</button>
+        <br>
+        <button><a href="sendmessagestudent.html"/>Enviar Mensagem para Aluno</button>
+    </center>
+
+
+    <script>
+
+        function enviar(){
+
+            var title = document.getElementById('title');
+            var description = document.getElementById('description');
+            var postdate = document.getElementById('postdate');
+            var author = document.getElementById('author');
+
+            let content = {
+
+                title: title.value,
+                description: description.value,
+                postdate: postdate.value,
+                author: author.value
+
+            }
+
+            var resposta = document.getElementById('resposta');
+
+            var ajax = new XMLHttpRequest();
+            ajax.onreadystatechange = function () {
+
+                if(this.readyState === 4 && this.status === 200){
+
+                    resposta.innerText = this.responseText;
+
+                    title.value = "";
+                    description.value = "";
+                    postdate.value = "";
+                    author.value = "";
+
+                } else {
+
+                    resposta.innerHTML = "Enviando...";
+
+                }
+
+            };
+            ajax.open("POST", "http://165.22.142.228:1602/send-feed");
+            ajax.setRequestHeader( "Content-Type", "application/json" );
+            ajax.send( JSON.stringify(content) );
+
+            return false;
+
+        }
+
+    </script>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</body>
+
+</html>

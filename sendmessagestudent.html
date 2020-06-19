@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<center>
+
+    <h2>Enviar Mensagem para a Aluno</h2>
+
+    <form
+            onsubmit="return enviar()">
+
+
+        <label for="fname">FROM:</label><br>
+        <input type="text" id="from" name="from">
+        <br>
+        <label for="lname">TO:</label><br>
+        <input type="text" id="to" name="to">
+        <br>
+        <label for="lname">MESSAGE:</label><br>
+        <input type="text" id="message" name="message">
+        <br>
+        <label for="lname">APIURL:</label><br>
+        <input type="text" id="apiurl" name="apiurl">
+
+        <br>
+        <div id="resposta"></div>
+        <br>
+        <button type="submit">Enviar</button>
+
+    </form>
+
+    <button><a href="allfeeds.html"/>Todos os Feeds</button>
+    <br>
+    <button><a href="sendmessagestudent.html"/>Enviar Mensagem para Aluno</button>
+
+</center>
+
+<script>
+    function enviar(){
+
+        var from = document.getElementById('from');
+        var to = document.getElementById('to');
+        var message = document.getElementById('message');
+        var apiurl = document.getElementById('apiurl');
+
+        let content = {
+
+            from: from.value,
+            to: to.value,
+            message: message.value,
+            apiurl: apiurl.value
+
+        }
+
+        var resposta = document.getElementById('resposta');
+
+        var ajax = new XMLHttpRequest();
+        ajax.onreadystatechange = function () {
+
+            if(this.readyState === 4 && this.status === 200){
+
+                resposta.innerText = this.responseText;
+
+                from.value = "";
+                to.value = "";
+                message.value = "";
+                apiurl.value = "";
+
+            } else {
+
+                resposta.innerHTML = "Enviando...";
+
+            }
+
+        };
+        ajax.open("POST", "http://165.22.142.228:1602/send-message-friend");
+        ajax.setRequestHeader( "Content-Type", "application/json" );
+        ajax.send( JSON.stringify(content) );
+
+        return false;
+
+    }
+
+</script>
+
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
