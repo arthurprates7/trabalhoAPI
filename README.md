@@ -11,4 +11,3 @@ O Arquivo sendmessagestudent.html você consegue enviar uma mensagem para o alun
 
 O trabalho foi produzido no intuito de comunicação entre APIs levantadas por nós alunos.
 
-No arquivo API-SLIM.zip está a API feita em PHP com Slim Framework no estilo MVC para a chegada de requisições dos outros alunos e salvar no banco de dados localmente.
